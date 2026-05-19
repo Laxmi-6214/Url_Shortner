@@ -49,7 +49,7 @@ async function shortenUrl() {
     }
 
     const response = await fetch(
-        "http://localhost:8080/shorten",
+        "/api/url/shorten",
         {
             method: "POST",
 
@@ -65,17 +65,17 @@ async function shortenUrl() {
 
     const data = await response.json();
 
-    document.getElementById("result").innerHTML =
+	document.getElementById("result").innerHTML =
 
-    `
-    <a class="short-link"
-       href="href="http://localhost:8080/${data.shortCode}"
-       target="_blank">
+	`
+	<a class="short-link"
+	 href="${window.location.origin}/${data.shortCode}"
+	   target="_blank">
 
-href="http://localhost:8080/${data.shortCode}
+	${window.location.origin}/${data.shortCode}
 
-    </a>
-    `;
+	</a>
+	`;
 
     loadDashboard();
 }
@@ -87,7 +87,7 @@ href="http://localhost:8080/${data.shortCode}
 async function loadDashboard() {
 
     const response =
-        await fetch("http://localhost:8080/all");
+        await fetch("/api/url/all");
 
     const data = await response.json();
 
@@ -143,7 +143,7 @@ async function loadDashboard() {
 async function loadUrls() {
 
     const response =
-        await fetch("http://localhost:8080/all");
+        await fetch("/api/url/all");
 
     const data = await response.json();
 
@@ -161,7 +161,7 @@ async function loadUrls() {
 
             <td>
 
-                <a href="http://localhost:8080/${url.shortCode}"
+                <a href="/${url.shortCode}"
                    target="_blank">
 
                    ${url.shortCode}
@@ -221,7 +221,7 @@ async function loadUrls() {
 async function loadAnalytics() {
 
     const response =
-        await fetch("http://localhost:8080/all");
+        await fetch("/api/url/all");
 
     const data = await response.json();
 
@@ -273,7 +273,7 @@ async function loadAnalytics() {
 async function deleteUrl(id) {
 
     await fetch(
-        `http://localhost:8080/delete/${id}`,
+        `/api/url/delete/${id}`,
         {
             method: "DELETE"
         }
