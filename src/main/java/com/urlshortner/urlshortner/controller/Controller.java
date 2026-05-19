@@ -1,10 +1,8 @@
 package com.urlshortner.urlshortner.controller;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +12,7 @@ import com.urlshortner.urlshortner.service.UrlService;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
+@RequestMapping("/api/url")
 @CrossOrigin("*")
 public class Controller {
 
@@ -54,11 +53,10 @@ public class Controller {
 
         return urlService.getAllUrls();
     }
-    
+
     @DeleteMapping("/delete/{id}")
     public void deleteUrl(@PathVariable Long id) {
 
         urlService.deleteUrl(id);
     }
 }
-
