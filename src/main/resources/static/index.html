@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>URL Shortener Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="theme-background"></div>
+
+    <div class="sidebar">
+
+        <h2 class="logo">URLLY</h2>
+
+     <ul>
+
+    <li onclick="loadDashboard()">
+        Dashboard
+    </li>
+
+    <li onclick="loadAnalytics()">
+        Analytics
+    </li>
+
+    <li onclick="loadUrls()">
+        URLs
+    </li>
+
+    <li onclick="loadSettings()">
+    Settings
+</li>
+</ul>
+
+    </div>
+
+    <div class="main">
+
+        <div class="topbar">
+
+    <h1>URLLY Dashboard</h1>
+    
+    <div class="note-box">
+⚠ Use short links like:
+<b>http://localhost:8080/shortcode</b>
+
+Example:
+<b>http://localhost:8080/g2zOf</b>
+</div>
+
+   <div class="profile" onclick="openAuthModal()">
+    👤
+</div>
+
+</div>
+        
+
+        
+        
+        <div id="content-area">
+
+</div>
+
+        
+    </div>
+    
+    <script src="script.js"></script>
+    
+    <!-- AUTH MODAL -->
+
+<div id="authModal" class="auth-modal">
+
+    <div class="auth-box">
+
+        <span class="close-btn" onclick="closeAuthModal()">
+            ×
+        </span>
+
+        <h2 id="formTitle">Login</h2>
+
+        <input type="text"
+               id="username"
+               placeholder="Enter Username">
+
+        <input type="password"
+               id="password"
+               placeholder="Enter Password">
+
+        <button onclick="loginUser()">
+            Login
+        </button>
+        <p class="switch-text">
+            Don't have account?
+            <span onclick="showSignup()">
+                Signup
+            </span>
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
