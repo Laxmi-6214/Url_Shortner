@@ -86,186 +86,219 @@ async function shortenUrl() {
 
 async function loadDashboard() {
 
-    const response =
-        await fetch("/api/url/all");
+    try {
 
-    const data = await response.json();
+        const response =
+            await fetch("/api/url/all");
 
-    let totalClicks = 0;
+        const data = await response.json();
 
-    data.forEach(url => {
+        let totalClicks = 0;
 
-        totalClicks += url.clicks;
-    });
+        data.forEach(url => {
 
-    document.getElementById("content-area").innerHTML =
+            totalClicks += url.clicks;
+        });
 
-    `
-    <div class="cards">
+        document.getElementById("content-area").innerHTML =
 
-        <div class="card">
-            <h3>Total URLs</h3>
-            <p>${data.length}</p>
+        `
+        <div class="cards">
+
+            <div class="card">
+                <h3>Total URLs</h3>
+                <p>${data.length}</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Clicks</h3>
+                <p>${totalClicks}</p>
+            </div>
+
+            <div class="card">
+                <h3>Active Users</h3>
+                <p>${data.length}</p>
+            </div>
+
         </div>
 
-        <div class="card">
-            <h3>Total Clicks</h3>
-            <p>${totalClicks}</p>
+        <div class="url-box">
+
+            <input type="text"
+                   id="urlInput"
+                   placeholder="Enter URL here">
+
+            <button onclick="shortenUrl()">
+                Shorten URL
+            </button>
+
         </div>
 
-        <div class="card">
-            <h3>Active Users</h3>
-            <p>${data.length}</p>
-        </div>
+        <div id="result"></div>
+        `;
 
-    </div>
+    }
 
-    <div class="url-box">
+    catch(error) {
 
-        <input type="text"
-               id="urlInput"
-               placeholder="Enter URL here">
+        console.log(error);
 
-        <button onclick="shortenUrl()">
-            Shorten URL
-        </button>
-
-    </div>
-
-    <div id="result"></div>
-    `;
+        document.getElementById("content-area").innerHTML =
+        "<h2>Dashboard Failed To Load ⚠</h2>";
+    }
 }
-
 /* =========================
    LOAD URLS
 ========================= */
 
 async function loadUrls() {
 
-    const response =
-        await fetch("/api/url/all");
+    try {
 
-    const data = await response.json();
+        const response =
+            await fetch("/api/url/all");
 
-    let rows = "";
+        const data = await response.json();
 
-    data.forEach(url => {
+        let rows = "";
 
-        rows +=
-        `
-        <tr>
+        data.forEach(url => {
 
-            <td>${url.id}</td>
-
-            <td>${url.originalUrl}</td>
-
-            <td>
-
-                <a href="/${url.shortCode}"
-                   target="_blank">
-
-                   ${url.shortCode}
-
-                </a>
-
-            </td>
-
-            <td>
-
-                <button class="delete-btn"
-                        onclick="deleteUrl(${url.id})">
-
-                    Delete
-
-                </button>
-
-            </td>
-
-        </tr>
-        `;
-    });
-
-    document.getElementById("content-area").innerHTML =
-
-    `
-    <div class="table-section">
-
-        <h2>All URLs</h2>
-
-        <table>
-
+            rows +=
+            `
             <tr>
 
-                <th>ID</th>
+                <td>${url.id}</td>
 
-                <th>Original URL</th>
+                <td>${url.originalUrl}</td>
 
-                <th>Short URL</th>
+                <td>
 
-                <th>Action</th>
+				<a href="${window.location.origin}/${url.shortCode}"
+				   target="_blank">
+
+                       ${url.shortCode}
+
+                    </a>
+
+                </td>
+
+                <td>
+
+                    <button class="delete-btn"
+                            onclick="deleteUrl(${url.id})">
+
+                        Delete
+
+                    </button>
+
+                </td>
 
             </tr>
+            `;
+        });
 
-            ${rows}
+        document.getElementById("content-area").innerHTML =
 
-        </table>
+        `
+        <div class="table-section">
 
-    </div>
-    `;
+            <h2>All URLs</h2>
+
+            <table>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Original URL</th>
+
+                    <th>Short URL</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+                ${rows}
+
+            </table>
+
+        </div>
+        `;
+
+    }
+
+    catch(error) {
+
+        console.log(error);
+
+        document.getElementById("content-area").innerHTML =
+        "<h2>URLs Failed To Load ⚠</h2>";
+    }
 }
-
 /* =========================
    ANALYTICS
 ========================= */
 
 async function loadAnalytics() {
 
-    const response =
-        await fetch("/api/url/all");
+    try {
 
-    const data = await response.json();
+        const response =
+            await fetch("/api/url/all");
 
-    let rows = "";
+        const data = await response.json();
 
-    data.forEach(url => {
+        let rows = "";
 
-        rows +=
-        `
-        <tr>
+        data.forEach(url => {
 
-            <td>${url.shortCode}</td>
-
-            <td>${url.clicks}</td>
-
-        </tr>
-        `;
-    });
-
-    document.getElementById("content-area").innerHTML =
-
-    `
-    <div class="table-section">
-
-        <h2>Analytics</h2>
-
-        <table>
-
+            rows +=
+            `
             <tr>
 
-                <th>Short Code</th>
+                <td>${url.shortCode}</td>
 
-                <th>Total Clicks</th>
+                <td>${url.clicks}</td>
 
             </tr>
+            `;
+        });
 
-            ${rows}
+        document.getElementById("content-area").innerHTML =
 
-        </table>
+        `
+        <div class="table-section">
 
-    </div>
-    `;
+            <h2>Analytics</h2>
+
+            <table>
+
+                <tr>
+
+                    <th>Short Code</th>
+
+                    <th>Total Clicks</th>
+
+                </tr>
+
+                ${rows}
+
+            </table>
+
+        </div>
+        `;
+
+    }
+
+    catch(error) {
+
+        console.log(error);
+
+        document.getElementById("content-area").innerHTML =
+        "<h2>Analytics Failed To Load ⚠</h2>";
+    }
 }
-
 /* =========================
    DELETE URL
 ========================= */

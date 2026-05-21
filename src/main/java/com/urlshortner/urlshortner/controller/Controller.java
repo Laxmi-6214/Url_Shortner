@@ -12,20 +12,27 @@ import com.urlshortner.urlshortner.service.UrlService;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/api/url")
 @CrossOrigin("*")
 public class Controller {
 
     @Autowired
     private UrlService urlService;
 
-    @PostMapping("/shorten")
+    /* =========================
+       SHORTEN URL
+    ========================= */
+
+    @PostMapping("/api/url/shorten")
     public Url shortenUrl(@RequestBody Url request) {
 
         return urlService.shortenUrl(
                 request.getOriginalUrl()
         );
     }
+
+    /* =========================
+       REDIRECT SHORT URL
+    ========================= */
 
     @GetMapping("/{shortCode}")
     public void redirectUrl(
@@ -42,19 +49,28 @@ public class Controller {
                     url.get().getOriginalUrl()
             );
         }
+
         else {
 
             response.sendError(404);
         }
     }
 
-    @GetMapping("/all")
+    /* =========================
+       GET ALL URLS
+    ========================= */
+
+    @GetMapping("/api/url/all")
     public List<Url> getAllUrls() {
 
         return urlService.getAllUrls();
     }
 
-    @DeleteMapping("/delete/{id}")
+    /* =========================
+       DELETE URL
+    ========================= */
+
+    @DeleteMapping("/api/url/delete/{id}")
     public void deleteUrl(@PathVariable Long id) {
 
         urlService.deleteUrl(id);
