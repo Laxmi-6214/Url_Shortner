@@ -34,7 +34,7 @@ public class Controller {
        REDIRECT SHORT URL
     ========================= */
 
-    @GetMapping("/{shortCode}")
+    @GetMapping("/{shortCode:[a-zA-Z0-9]+}")
     public void redirectUrl(
             @PathVariable String shortCode,
             HttpServletResponse response
